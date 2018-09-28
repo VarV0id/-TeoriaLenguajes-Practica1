@@ -40,9 +40,9 @@ public class FiniteAutomaton {
     }
     public boolean verificateValidExpression(String input){
         String [][] transitionMatrix = {{"K.","!","K","!","!","!","!","R","0"},
-                                        {"R.","N","!","R","C","K","N","!","1"},
-                                        {"C.","!","!","!","!","!","!","R","0"},
-                                        {"N.","!","K","R","C","K","!","R","1"}};
+                                        {"R.","N","!","C","K","K","N","!","1"},
+                                        {"C.","N","!","!","K","K","N","!","1"},
+                                        {"N.","!","K","C","K","K","R","!","1"}};
         if(parenthesisAnalyzer(input)) {
             int i = 0;
             String lastState = "K.";

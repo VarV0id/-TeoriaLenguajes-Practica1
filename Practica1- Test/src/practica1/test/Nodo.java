@@ -1,37 +1,36 @@
 package practica1.test;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Nodo {
-    private int nombre;
-    private Transicion[] transicion;
+    private String nombre;
+    List<Transicion> transicion;
     private int i;
+    
 
     
-    public Nodo(int nombre) {
+    public Nodo(String nombre) {
+        transicion = new LinkedList<>();
         this.nombre = nombre;
         i = 0;
     }
     
     public void agregarTransicion(Nodo desde, Nodo hacia, String valor){
-        transicion[i] = new Transicion(desde, hacia, valor);
-        i = i+1;
+        transicion.add(new Transicion(desde, hacia, valor));
+        i++;
     }
     
     public Transicion mostrarTransicion(int i){
-        return transicion[i];
+        return transicion.get(i);
     }
     
     public void eliminarTransición(int posicion){
-        if(posicion == i){
-            i = i-1;
-        }else if (posicion > i){
+        if (posicion > i){
             System.out.println("No existe transicion en esa posición");
         }else{
-            int j;
-            j = posicion;
-            while(j<i){
-                transicion[j] = transicion[j+1];
-                j = j+1;
-            } 
+            transicion.remove(posicion);
+            i--;
         }
     }
     
@@ -40,11 +39,11 @@ public class Nodo {
     }
     
 
-    public int getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(int nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 }

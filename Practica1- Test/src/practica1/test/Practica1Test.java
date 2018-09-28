@@ -24,7 +24,17 @@ public class Practica1Test {
         for(int i = 0; i <raro.size();i++){
             System.out.print(raro.get(i)+" ");
         }
-        System.out.println("\n"+a.verificateValidExpression("(1.2|(3.5)*|4*2+|GO|GAR)¬"));
+        String p = "1";
+        System.out.println("\n"+a.verificateValidExpression("s.(s|2.*)*¬"));
+        boolean esClase =  p.getClass().getName() == String.class.getName();
+        System.out.println("//////////////////////////////");
+        if(esClase){
+            System.out.println("true");
+        }else{
+            System.out.println("false");
+        }
+        Thompson th = new Thompson();
+        th.buildThompson("010*1..+10*..¬");
     }
     
 }
