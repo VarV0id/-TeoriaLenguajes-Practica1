@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Stack;
 
 public class FiniteAutomaton {
-    Node headNode;
     List<String> symbols;
     String specialSimbols = "+().|*¬";
+    int i;
 
     public FiniteAutomaton() {
-        headNode = new Node(null, null, true);
         symbols = new ArrayList<String>();
+        i = 0;
     }
 
     public void generateAutomaton(String input) {
@@ -40,9 +40,9 @@ public class FiniteAutomaton {
     }
     public boolean verificateValidExpression(String input){
         String [][] transitionMatrix = {{"K.","!","K","!","!","!","!","R","0"},
-                                        {"R.","N","!","R","C","K","N","!","1"},
-                                        {"C.","!","!","!","!","!","!","R","0"},
-                                        {"N.","!","K","R","C","K","!","R","1"}};
+                                        {"R.","N","!","C","K","K","N","!","1"},
+                                        {"C.","N","!","!","K","K","N","!","1"},
+                                        {"N.","!","K","C","K","K","R","!","1"}};
         if(parenthesisAnalyzer(input)) {
             int i = 0;
             String lastState = "K.";
@@ -78,9 +78,28 @@ public class FiniteAutomaton {
         }
         return false;
     }
-
-    private void generateThompsonBuild() {
-
+    
+//    public String inTopos(String expr){
+//        Stack pp = new Stack();
+//        String x;
+//        x = nextToken(expr);
+//        while(!"~".equals(x)){
+//            switch (x=)
+//        } 
+//    }    
+    
+    private String nextToken(String e){
+        int j;
+        String c;
+        j = e.length();
+        i = i+1;
+        if(i > j){
+            i = 0;
+            c = "~"; //Fin de expresión
+        }else{
+            c = Character.toString(e.charAt(i));
+        }
+        return c; 
     }
 
     public boolean parenthesisAnalyzer(String input) {
