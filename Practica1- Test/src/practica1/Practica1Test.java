@@ -44,7 +44,7 @@ public class Practica1Test {
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         NodosSingleton nodos = NodosSingleton.getInstance(); // de esta forma se saca la lista de nodos para hacer el cierre lambda
         // debe ejecutarse la siguiente linea para que el vector se llene
-        ThompsonCreator th = new ThompsonCreator("(a+.b.(c|a)*)¬");
+        ThompsonCreator th = new ThompsonCreator("(0+1.0*.1)*.1.0*¬");
         List<Nodo>listaDeNodos = nodos.getNodesList(); // Lista de nodos luego de construccion de thompson
 
 

@@ -23,4 +23,9 @@ public class NodosSingleton {
     public List<Nodo> getNodesList(){
         return nodeList;
     }
+    public void setNumsToNodes(){
+        for(int i=1; i<=nodeList.size();i++){
+            nodeList.get(i-1).setIdentifier(Integer.toString(i));
+        }
+    }
 }
