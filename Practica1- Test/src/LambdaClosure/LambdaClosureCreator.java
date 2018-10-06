@@ -47,4 +47,10 @@ public class LambdaClosureCreator {
     public int returnSize(){
         return i;
     }
+    
+    public List<Nodo> returnEstados(){
+        return estados;
+    }
+    
+    
 }

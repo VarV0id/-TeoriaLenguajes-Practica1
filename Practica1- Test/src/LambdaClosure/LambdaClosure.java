@@ -18,20 +18,15 @@ import practica1.Estructuras.Nodo;
 public class LambdaClosure {
     
     private Nodo node;
-//    private int i;
     private List<String> set;
     
     public LambdaClosure(Nodo node){
         this.node = node;
-//        i = 0;
         set = new ArrayList<String>();
         
     }
     
-//    public int returnTamañoVector(){
-//        return i;
-//    }
-    
+
     public Stack searchLambda(Nodo nodo, Stack p){
         Stack pila = p;
         Stack aux;
@@ -46,8 +41,8 @@ public class LambdaClosure {
                     estado = nodo.mostrarTransicion(j).getEnd();
                     pila.push(estado.getIdentifier());
                     aux = searchLambda(estado, pila);
-                    if(aux.empty() == false){
-                        while(aux.empty() == false){
+                    if(!aux.empty()){
+                        while(!aux.empty()){
                             pila.push(aux.pop());
                         }
                     }
@@ -63,13 +58,11 @@ public class LambdaClosure {
         aux = new Stack();
         pila.push(node.getIdentifier());
         pila = searchLambda(node, pila);
-        if(pila.peek() == node.getIdentifier()){
-            set.add(node.getIdentifier());
-        }
-        while(pila.empty() == false){
+        
+        while(!pila.empty()){
             aux.push(pila.pop());
         }
-        while(aux.empty() == false){
+        while(!aux.empty()){
             set.add((String) aux.pop());
         }
     }

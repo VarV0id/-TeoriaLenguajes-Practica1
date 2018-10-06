@@ -2,7 +2,7 @@ package practica1.Estructuras;
 
 import java.util.ArrayList;
 
-public class FiniteAutomaton {
+public class FiniteAutomaton{
 
 
     public FiniteAutomaton() {

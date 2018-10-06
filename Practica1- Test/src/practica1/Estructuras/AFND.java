@@ -9,6 +9,8 @@ package practica1.Estructuras;
  *
  * @author Tatiana Gómez
  */
-public class AFND {
+public class AFND extends FiniteAutomaton{
+    
+    
     
 }
