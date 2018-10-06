@@ -17,7 +17,7 @@ public class RegularExpression {
     }
     public String returnRegularExpression(){
         return er;
-    }
+    }  
     public boolean verificateValidExpression(){
         String [][] transitionMatrix = {{"K.","!","K","!","!","!","!","R","0"},
                 {"R.","N","!","C","K","K","N","!","1"},

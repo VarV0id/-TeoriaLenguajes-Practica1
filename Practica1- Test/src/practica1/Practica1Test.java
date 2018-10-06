@@ -11,6 +11,7 @@ import practica1.Thompson.NodosSingleton;
 import practica1.Thompson.ThompsonCreator;
 
 import java.util.List;
+import LambdaClosure.LambdaClosureCreator;
 
 /**
  *
@@ -46,6 +47,13 @@ public class Practica1Test {
         // debe ejecutarse la siguiente linea para que el vector se llene
         ThompsonCreator th = new ThompsonCreator("(0+1.0*.1)*.1.0*¬");
         List<Nodo>listaDeNodos = nodos.getNodesList(); // Lista de nodos luego de construccion de thompson
+        
+        LambdaClosureCreator conjuntos = new LambdaClosureCreator(nodos);
+        conjuntos.CreateLambdaSets();
+        List<List<String>> nododL = conjuntos.returnLambdaSets();
+        int i;
+        i = nododL.size();
+        System.out.println("LOS ESTADOS LAMBDA SON:" + i);
 
 
 
