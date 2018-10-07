@@ -54,6 +54,12 @@ public class Practica1Test {
         ads.addEntrySymbol("a");
         ads.addEntrySymbol("b");
         ads.addEntrySymbol("c");
+        ads.addStates("1", "0");
+        ads.addStates("2","1");
+        ads.addStates("3","0");
+        ads.setTransition("a","2","3");
+        System.out.println("=======================================");
+        System.out.println(ads.getTransition("a","2"));
 
         LambdaClosureCreator conjuntos = new LambdaClosureCreator(nodos);
         conjuntos.CreateLambdaSets();

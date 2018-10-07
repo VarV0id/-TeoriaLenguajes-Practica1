@@ -34,15 +34,48 @@ public class FiniteAutomaton{
             columns++;
         }
     }
-    public void addStates(String state){
-        if(rows >= 3){
-            
+    public void addStates(String state, String isAcceptated){
+        if(columns >= 3){
+            for(int i = 0; i <columns; i++) {
+                if (i == 0) {
+                    transitionsTable.get(i).add(state);
+                }else {
+                    transitionsTable.get(i).add("");
+                }
+            }
+            rows++;
+            transitionsTable.get(columns-1).set(rows-1, isAcceptated);
         }
+    }
+    public void setTransition(String symbol, String state, String transition){
+        int column = 0;
+        for(int i = 0; i < columns; i++){
+            if(transitionsTable.get(i).get(0).equals(symbol)){
+                column = i;
+            }
+        }
+        int indexState = transitionsTable.get(0).indexOf(state);
+        transitionsTable.get(column).set(indexState,transition);
+    }
+    public String getTransition(String symbol, String state){
+        int column = 0;
+        for(int i = 0; i < columns; i++){
+            if(transitionsTable.get(i).get(0).equals(symbol)){
+                column = i;
+            }
+        }
+        int indexState = transitionsTable.get(0).indexOf(state);
+        return transitionsTable.get(column).get(indexState);
     }
     public List<List<String>> getFiniteAutomaton() {
         return transitionsTable;
     }
-//    public String inTopos(String expr){
+
+
+
+
+
+// public String inTopos(String expr){
 //        Stack pp = new Stack();
 //        String x;
 //        x = nextToken(expr);
