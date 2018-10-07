@@ -22,6 +22,7 @@ public class ThompsonCreator {
     public ThompsonCreator(String er) {
         build = new Thompson(er.substring(0,er.length()-1));
         build.getEnd().setAcceptation(true);
+        build.getBegin().setBegin(true);
         NodosSingleton.getInstance().setNumsToNodes();
     }
     public ThompsonCreator(){

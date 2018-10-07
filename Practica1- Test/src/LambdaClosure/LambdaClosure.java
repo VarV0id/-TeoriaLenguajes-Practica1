@@ -6,6 +6,7 @@
 package LambdaClosure;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
@@ -18,18 +19,19 @@ import practica1.Estructuras.Nodo;
 public class LambdaClosure {
     
     private Nodo node;
-    private List<String> set;
+    private HashSet<String> set;
     
     public LambdaClosure(Nodo node){
         this.node = node;
-        set = new ArrayList<String>();
+        set = new HashSet<>();
         
     }
     
 
     public Stack searchLambda(Nodo nodo, Stack p){
-        Stack pila = p;
-        Stack aux;
+        Stack pila = (Stack) p.clone();
+        Stack aux, p2, p1;
+        p1 = new Stack();
         String valor;
         Nodo estado;
         int i, nombre;
@@ -40,7 +42,8 @@ public class LambdaClosure {
                 if("λ".equals(valor)){
                     estado = nodo.mostrarTransicion(j).getEnd();
                     pila.push(estado.getIdentifier());
-                    aux = searchLambda(estado, pila);
+                    p2 = searchLambda(estado, p1);
+                    aux = (Stack) p2.clone();
                     if(!aux.empty()){
                         while(!aux.empty()){
                             pila.push(aux.pop());
@@ -66,7 +69,7 @@ public class LambdaClosure {
         }
     }
     
-    public List<String> returnLambdaSet(){
+    public HashSet<String> returnLambdaSet(){
         return set;
     }
         

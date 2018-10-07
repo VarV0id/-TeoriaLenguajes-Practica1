@@ -8,12 +8,14 @@ public class Nodo {
     List<Transition> transition;
     private int i;
     private boolean isAcceptation;
+    private boolean isBegin;
     
 
     
     public Nodo() {
         transition = new LinkedList<>();
         isAcceptation = false;
+        isBegin = false;
         i = 0;
     }
     
@@ -54,5 +56,13 @@ public class Nodo {
 
     public void setAcceptation(boolean acceptation) {
         isAcceptation = acceptation;
+    }
+    
+    public boolean isBegin(){
+        return isBegin;
+    }
+    
+    public void setBegin(boolean begin){
+        isBegin = begin;
     }
 }
