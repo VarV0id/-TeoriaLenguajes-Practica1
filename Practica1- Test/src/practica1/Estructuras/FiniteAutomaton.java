@@ -1,11 +1,13 @@
 package practica1.Estructuras;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FiniteAutomaton{
 
-
+    List<List<String>> transitionsTable;
     public FiniteAutomaton() {
+        transitionsTable = new ArrayList<>();
 
     }
 

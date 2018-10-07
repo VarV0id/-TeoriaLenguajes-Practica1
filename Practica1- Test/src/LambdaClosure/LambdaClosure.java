@@ -58,8 +58,7 @@ public class LambdaClosure {
         aux = new Stack();
         pila.push(node.getIdentifier());
         pila = searchLambda(node, pila);
-        
-        while(!pila.empty()){
+        while(pila.empty() == false){
             aux.push(pila.pop());
         }
         while(!aux.empty()){
