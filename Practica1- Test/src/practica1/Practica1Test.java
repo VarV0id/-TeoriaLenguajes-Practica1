@@ -5,11 +5,13 @@
  */
 package practica1;
 
+import practica1.Estructuras.FiniteAutomaton;
 import practica1.Estructuras.Nodo;
 import practica1.ExpresionesRegulares.RegularExpression;
 import practica1.Thompson.NodosSingleton;
 import practica1.Thompson.ThompsonCreator;
 
+import java.util.ArrayList;
 import java.util.List;
 import LambdaClosure.LambdaClosureCreator;
 
@@ -47,7 +49,12 @@ public class Practica1Test {
         // debe ejecutarse la siguiente linea para que el vector se llene
         ThompsonCreator th = new ThompsonCreator("(0+1.0*.1)*.1.0*¬");
         List<Nodo>listaDeNodos = nodos.getNodesList(); // Lista de nodos luego de construccion de thompson
-        
+
+        FiniteAutomaton ads = new FiniteAutomaton();
+        ads.addEntrySymbol("a");
+        ads.addEntrySymbol("b");
+        ads.addEntrySymbol("c");
+
         LambdaClosureCreator conjuntos = new LambdaClosureCreator(nodos);
         conjuntos.CreateLambdaSets();
         List<List<String>> nododL = conjuntos.returnLambdaSets();
