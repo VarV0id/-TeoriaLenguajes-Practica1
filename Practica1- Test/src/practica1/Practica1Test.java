@@ -68,13 +68,12 @@ public class Practica1Test {
         LambdaClosureCreator conjuntos = new LambdaClosureCreator(nodos, er);
         //conjuntos.createLambdaSets();
         FiniteAutomaton au;
-        conjuntos.generarAutomata();
+        au = conjuntos.generarAutomata();
         Nodo nodo;
         nodo = conjuntos.acceptState();
-        List<HashSet<String>> nododL = conjuntos.returnLambdaSets();
-        int i;
-        i = nododL.size();
-        System.out.println("LOS ESTADOS LAMBDA SON:" + i);
+        List<List<String>> matriz;
+        matriz = au.getFiniteAutomaton();
+        
 
 
 

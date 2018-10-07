@@ -61,7 +61,7 @@ public class LambdaClosureCreator {
         HashSet<String> set, co;
         List<String> simbols;
         String s, as;
-        int j, k, begin, n, estado;
+        int j, k, begin;
         
         as = acceptState().getIdentifier();
         au = new FiniteAutomaton();
@@ -69,28 +69,26 @@ public class LambdaClosureCreator {
         begin = postbegin();
         set = estadosLambda.get(begin);
         
-        estado = 1;
+        estadosA = 1;
+                
+        //Se ingresa los simbolos al AUTOMATA
+        for(String si: simbols){
+            au.addEntrySymbol(si);
+        }
         
         /**
          * El estado inicial en el Automata es el estado 1
          */
         if(set.contains(as)){
-            au.addStates(Integer.toString(estado), "1");
+            au.addStates(Integer.toString(estadosA), "1");
         }else{
-            au.addStates(Integer.toString(estado), "0");
+            au.addStates(Integer.toString(estadosA), "0");
         }
-        /**
-         * Se agrega el simbolo del error
-         */
-        au.addEntrySymbol("!");
         
-        /**Se agrega los estados que se van creando al Automata y se agrega los
-         * simbolos de la expresión regular. Se añade las transiciones que tenga
-         * el estado de inicio al Automata.
+        /**Se agrega los estados que se van creando al Automata 
+         * Se añade las transiciones que tenga el estado de inicio al Automata.
         */
         for(String si: simbols){
-            //Se ingrese el simbolo al AUTOMATA
-            au.addEntrySymbol(si);
             //Estado con la transición de la variable si
             co = analizarEstado(si, set);
             au = agg(au, si, set, co);            
@@ -108,6 +106,7 @@ public class LambdaClosureCreator {
                 co = analizarEstado(sim, statesAux);
                 au = agg(au, sim, statesAux, co);
             }
+            k = newStates.size(); //Se actualiza el tamaño
         }
         return au;
     }
