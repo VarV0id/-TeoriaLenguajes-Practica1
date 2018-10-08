@@ -1,6 +1,5 @@
-package practica1.LambdaV2;
+package practica1.Lambda;
 
-import practica1.Estructuras.FiniteAutomaton;
 import practica1.Estructuras.Nodo;
 import practica1.Estructuras.Transition;
 import practica1.Thompson.NodosSingleton;

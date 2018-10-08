@@ -8,7 +8,7 @@ package practica1;
 import practica1.Estructuras.FiniteAutomaton;
 import practica1.Estructuras.Nodo;
 import practica1.ExpresionesRegulares.RegularExpression;
-import practica1.LambdaV2.LambdaBuilder;
+import practica1.Lambda.LambdaBuilder;
 import practica1.Thompson.NodosSingleton;
 import practica1.Thompson.ThompsonCreator;
 
@@ -47,16 +47,17 @@ public class Practica1Test {
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         NodosSingleton nodos = NodosSingleton.getInstance(); // de esta forma se saca la lista de nodos para hacer el cierre lambda
         // debe ejecutarse la siguiente linea para que el vector se llene
-        RegularExpression er = new RegularExpression("(0|1.0*.1)*.0*¬");
+        RegularExpression er = new RegularExpression("1.0*¬");
         er.analizeSymbols();
-        TreeSet<String> ap = new TreeSet<>();
+       // TreeSet<String> ap = new TreeSet<>();
         ThompsonCreator th = new ThompsonCreator(er.returnRegularExpression());
-        List<Nodo>listaDeNodos = nodos.getNodesList(); // Lista de nodos luego de construccion de thompson
-        LambdaBuilder ab = new LambdaBuilder(th.getBuild());
-        TreeSet<String> prueba = ab.buildLambdaClose(listaDeNodos.get(14),ap);
-        TreeSet<String> asd = ab.setSymbolLambdaClosure("1", prueba);
+        //List<Nodo>listaDeNodos = nodos.getNodesList(); // Lista de nodos luego de construccion de thompson
+        //LambdaBuilder ab = new LambdaBuilder(th.getBuild());
+       // TreeSet<String> prueba = ab.buildLambdaClose(listaDeNodos.get(14),ap);
+        //TreeSet<String> asd = ab.setSymbolLambdaClosure("1", prueba);
         FiniteAutomaton pl = new FiniteAutomaton(th.getBuild(),er);
         pl.crearAutomata();
+        System.out.println(pl.verifyString("1000000010"));
 //  FiniteAutomaton ads = new FiniteAutomaton();
 //        ads.addEntrySymbol("a");
 //        ads.addEntrySymbol("b");

@@ -1,7 +1,7 @@
 package practica1.Estructuras;
 
 import practica1.ExpresionesRegulares.RegularExpression;
-import practica1.LambdaV2.LambdaBuilder;
+import practica1.Lambda.LambdaBuilder;
 import practica1.Thompson.Thompson;
 
 import java.util.*;
@@ -29,28 +29,75 @@ public class FiniteAutomaton{
         conjuntos.add(generator.buildLambdaClose(initial,primero));
         Nodo first = new Nodo();
         nodosList.add(first);
+        first.setBegin(true);
         cantConjuntos++;
 
         List<String> symbols = expression.returnSymbols();
         int i = 0;
         while(i < cantConjuntos){
-            for(int j = 0; j < symbols.size(); j++){
+            for(int j = 0; j < symbols.size(); j++) {
                 TreeSet<String> conjuntosTemp = new TreeSet<>();
-                conjuntosTemp = generator.setSymbolLambdaClosure(symbols.get(j),conjuntos.get(i));
+                conjuntosTemp = generator.setSymbolLambdaClosure(symbols.get(j), conjuntos.get(i));
                 Nodo x = new Nodo();
-                if(conjuntosTemp.contains(initial.getIdentifier())){
+                if (conjuntosTemp.contains(initial.getIdentifier())) {
                     x.setAcceptation(true);
                 }
-                if(!conjuntos.contains(conjuntosTemp)){
-                    conjuntos.add(conjuntosTemp);
-                    cantConjuntos++;
-                    nodosList.add(x);
+                if (conjuntosTemp.isEmpty()) {
+                    if (!conjuntos.contains(conjuntosTemp)) {
+                        conjuntos.add(conjuntosTemp);
+                        cantConjuntos++;
+                        nodosList.add(x);
+                    }
+                    nodosList.get(nodosList.size() - 1).agregarTransicion(nodosList.get(nodosList.size() - 1), symbols.get(j));
+                } else {
+                    if (!conjuntos.contains(conjuntosTemp)) {
+                        conjuntos.add(conjuntosTemp);
+                        cantConjuntos++;
+                        nodosList.add(x);
+                    }
+                    nodosList.get(i).agregarTransicion(nodosList.get(nodosList.size() - 1), symbols.get(j));
                 }
-                nodosList.get(i).agregarTransicion(x,symbols.get(j));
             }
             i++;
         }
-
+        establishTerminalStates();
+    }
+    public void establishTerminalStates(){
+        String finalId = th.getEnd().getIdentifier();
+        for(int j = 0 ; j < conjuntos.size();j++){
+            if(conjuntos.get(j).contains(finalId)){
+                nodosList.get(j).setAcceptation(true);
+            }
+        }
+    }
+    public boolean verifyString(String hilera){
+        Nodo nodo = nodosList.get(0);
+        if(!verificateSymbols(hilera)) {
+            return false;
+        }
+            for (int i = 0; i < hilera.length(); i++) {
+                String character = hilera.substring(i, i + 1);
+                Transition tr = null;
+                for(int j = 0; j<nodo.numeroDeTransiciones();j++){
+                    if(nodo.mostrarTransicion(j).getValue().equals(character)){
+                        tr = nodo.mostrarTransicion(j);
+                    }
+                }
+                if(tr == null){
+                    return false;
+                }
+                nodo = tr.getEnd();
+            }
+            return nodo.isAcceptation();
+    }
+    private boolean verificateSymbols(String hilera){
+        List<String> symbols = expression.returnSymbols();
+        for(int i = 0; i < hilera.length();i++){
+            if(!symbols.contains(hilera.substring(i,i+1))){
+                return false;
+            }
+        }
+        return true;
     }
    /* public void addEntrySymbol(String symbol){
         List<String> colSymbol = new ArrayList<>();
