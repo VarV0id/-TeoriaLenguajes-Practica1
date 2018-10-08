@@ -25,7 +25,6 @@ public class Thompson {
         begin.agregarTransicion(end, er);
         NodosSingleton.getInstance().addNodes(begin);
         NodosSingleton.getInstance().addNodes(end);
-
     }
 
     public Nodo getBegin() {

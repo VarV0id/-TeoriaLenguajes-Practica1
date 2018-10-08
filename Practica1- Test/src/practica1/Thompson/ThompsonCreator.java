@@ -120,4 +120,8 @@ public class ThompsonCreator {
         NodosSingleton.getInstance().addNodes(izqCenter);
         NodosSingleton.getInstance().addNodes(derCenter);
     }
+
+    public Thompson getBuild() {
+        return build;
+    }
 }

@@ -1,24 +1,58 @@
 package practica1.Estructuras;
 
-import java.util.ArrayList;
-import java.util.List;
+import practica1.ExpresionesRegulares.RegularExpression;
+import practica1.LambdaV2.LambdaBuilder;
+import practica1.Thompson.Thompson;
+
+import java.util.*;
 
 public class FiniteAutomaton{
 
-    List<List<String>> transitionsTable;
-    int rows;
-    int columns;
-    int states;
-    public FiniteAutomaton() {
-        transitionsTable = new ArrayList<>();
-        List<String> colEmpty = new ArrayList<>();
-        rows= 1;
-        this.columns = 1;
-        colEmpty.add("");
-        transitionsTable.add(colEmpty);
-        states = 0;
+    List<Nodo> nodosList;
+    List<TreeSet<String>> conjuntos;
+    Thompson th;
+    RegularExpression expression;
+    int cantConjuntos;
+
+    public FiniteAutomaton(Thompson th, RegularExpression expression) {
+        conjuntos = new LinkedList<>();
+        nodosList = new ArrayList<>();
+        this.th = th;
+        this.expression = expression;
+        cantConjuntos = 0;
     }
-    public void addEntrySymbol(String symbol){
+
+    public void crearAutomata(){
+        LambdaBuilder generator = new LambdaBuilder(th);
+        Nodo initial = generator.searchInitialState();
+        TreeSet<String> primero = new TreeSet<>();
+        conjuntos.add(generator.buildLambdaClose(initial,primero));
+        Nodo first = new Nodo();
+        nodosList.add(first);
+        cantConjuntos++;
+
+        List<String> symbols = expression.returnSymbols();
+        int i = 0;
+        while(i < cantConjuntos){
+            for(int j = 0; j < symbols.size(); j++){
+                TreeSet<String> conjuntosTemp = new TreeSet<>();
+                conjuntosTemp = generator.setSymbolLambdaClosure(symbols.get(j),conjuntos.get(i));
+                Nodo x = new Nodo();
+                if(conjuntosTemp.contains(initial.getIdentifier())){
+                    x.setAcceptation(true);
+                }
+                if(!conjuntos.contains(conjuntosTemp)){
+                    conjuntos.add(conjuntosTemp);
+                    cantConjuntos++;
+                    nodosList.add(x);
+                }
+                nodosList.get(i).agregarTransicion(x,symbols.get(j));
+            }
+            i++;
+        }
+
+    }
+   /* public void addEntrySymbol(String symbol){
         List<String> colSymbol = new ArrayList<>();
         colSymbol.add(symbol);
         List<String> colEmpty = new ArrayList<>();
@@ -69,7 +103,7 @@ public class FiniteAutomaton{
     }
     public List<List<String>> getFiniteAutomaton() {
         return transitionsTable;
-    }
+    }*/
 
 
 
