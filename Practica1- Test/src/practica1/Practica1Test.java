@@ -48,7 +48,7 @@ public class Practica1Test {
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         NodosSingleton nodos = NodosSingleton.getInstance(); // de esta forma se saca la lista de nodos para hacer el cierre lambda
         // debe ejecutarse la siguiente linea para que el vector se llene
-        RegularExpression er = new RegularExpression("(0+1.0*.1)*.0*.¬");
+        RegularExpression er = new RegularExpression("(0|1.0*.1)*.1.0*¬");
         er.analizeSymbols();
         
         ThompsonCreator th = new ThompsonCreator(er.returnRegularExpression());

@@ -22,6 +22,7 @@ public class LambdaClosureCreator {
     private List<HashSet<String>> estadosLambda, newStates;
     private NodosSingleton nodos;
     private RegularExpression re;
+    private FiniteAutomaton automata;
     private int i, estadosA;
     
     public LambdaClosureCreator(NodosSingleton nodos, RegularExpression re){
@@ -55,6 +56,19 @@ public class LambdaClosureCreator {
        return automata;
     }
     
+//    private FiniteAutomaton construcciónAutomata(){
+//        HashSet<String> setLambda;
+//        FiniteAutomaton au;
+//        List<String> simbols;
+//        
+//        simbols = re.returnSymbols();
+//        for(String s: simbols){
+//            automata.addEntrySymbol(s);
+//        }
+//        
+//    }
+    
+    
     private FiniteAutomaton construccionAF(){
         HashSet<String> statesAux;
         FiniteAutomaton au;
@@ -66,7 +80,7 @@ public class LambdaClosureCreator {
         as = acceptState().getIdentifier();
         au = new FiniteAutomaton();
         simbols = re.returnSymbols();
-        begin = postbegin();
+        begin = postBegin();
         set = estadosLambda.get(begin);
         
         estadosA = 1;
@@ -106,7 +120,16 @@ public class LambdaClosureCreator {
                 co = analizarEstado(sim, statesAux);
                 au = agg(au, sim, statesAux, co);
             }
-            k = newStates.size(); //Se actualiza el tamaño
+        }
+        k = newStates.size(); //Se actualiza el tamaño
+        if(k-j > 1){
+            for(int f=j;f<k; f++){
+                statesAux = newStates.get(f);
+                for(String sim: simbols){
+                    co = analizarEstado(sim, statesAux);
+                    au = agg(au, sim, statesAux, co);
+                }  
+            }
         }
         return au;
     }
@@ -133,7 +156,7 @@ public class LambdaClosureCreator {
         String valorT, pos;
         int e, t, j, p;
         e = Integer.parseInt(estado);
-        nodo = estados.get(e);
+        nodo = buscarNodo(estado);
         t = nodo.numeroDeTransiciones();
         for(j=0; j<t; j++){
             valorT = nodo.mostrarTransicion(j).getValue();
@@ -145,6 +168,20 @@ public class LambdaClosureCreator {
         } 
         pos = "-1";
         return pos;
+    }
+    
+    private Nodo buscarNodo(String ide){
+       Nodo nodo;
+       int j;
+       String valor;
+       for(j=0; j<i; j++){
+           nodo = estados.get(j);
+           valor = nodo.getIdentifier();
+           if(valor.equals(ide)){
+               return nodo;
+           }
+       }
+       return null;
     }
     
     private int posNewStates(HashSet<String> estado){
@@ -169,7 +206,7 @@ public class LambdaClosureCreator {
         HashSet<String> set;
         String as;
         int k, begin, j;
-        begin = postbegin();
+        begin = postBegin();
         set = estadosLambda.get(begin);
         
         as = acceptState().getIdentifier();
@@ -204,7 +241,7 @@ public class LambdaClosureCreator {
         return au;
     }
     
-    public int postbegin(){
+    public int postBegin(){
       Nodo nodo;
         int j;
         for(j=0; j<i; j++){
